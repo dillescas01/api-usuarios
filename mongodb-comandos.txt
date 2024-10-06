@@ -1,0 +1,8 @@
+$ docker exec -it mongo_c bash
+$ mongosh
+use usuarios
+db.createCollection("usuarios")
+db.usuarios.insertMany([
+    { nombre: "Juan Perez", email: "juan.perez@example.com", password: "contraseña_encriptada", direccion: "Calle Falsa 123" }
+])
+db.usuarios.find().pretty()
