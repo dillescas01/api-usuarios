@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 // Conectar a MongoDB
-mongoose.connect('mongodb://<IP_privada_MV_BD>:27017/usuarios', {
+mongoose.connect('mongodb://98.82.74.138:27017/usuarios', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => console.log('MongoDB conectado'))
