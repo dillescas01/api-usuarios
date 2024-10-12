@@ -8,7 +8,7 @@ const app = express();
 // Middleware para manejar JSON
 app.use(express.json());
 
-// Ruta de echo test para el balanceador de carga
+// Ruta de echo test para el balanceador de carga o verificación de salud
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Echo Test OK' });
 });
@@ -17,7 +17,8 @@ app.get('/', (req, res) => {
 app.use('/users', usersRoutes);
 
 // Conectar a la base de datos MongoDB
-mongoose.connect('mongodb://98.82.74.138:27017/usuarios', {
+const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/usuarios';
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -29,6 +30,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor ejecutándose en el puerto ${PORT}`);
 });
-
-
-
