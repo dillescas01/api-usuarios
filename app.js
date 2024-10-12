@@ -1,27 +1,34 @@
+// app.js
 const express = require('express');
 const mongoose = require('mongoose');
-const userRoutes = require('./routes/users');
+const usersRoutes = require('./routes/users');
 
 const app = express();
+
+// Middleware para manejar JSON
 app.use(express.json());
 
-// Conectar a MongoDB
-mongoose.connect('mongodb://98.82.74.138:27017/usuarios', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => console.log('MongoDB conectado'))
-  .catch((err) => console.log('Error conectando a MongoDB', err));
-
-
-// Echo test
+// Ruta de echo test para el balanceador de carga
 app.get('/', (req, res) => {
-    res.json({ message: 'Echo Test OK' });
+  res.status(200).json({ message: 'Echo Test OK' });
 });
 
-// Rutas de usuario
-app.use('/users', userRoutes);
+// Usar las rutas de usuarios con prefijo /users
+app.use('/users', usersRoutes);
 
-const PORT = 5000;
+// Conectar a la base de datos MongoDB
+mongoose.connect('mongodb://98.82.74.138:27017/usuarios', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('Conectado a MongoDB'))
+.catch((error) => console.error('Error al conectar a MongoDB:', error));
+
+// Escuchar en el puerto 5000
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en puerto ${PORT}`);
+  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
 });
+
+
+
