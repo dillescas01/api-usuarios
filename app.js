@@ -1,7 +1,7 @@
 // app.js
 const express = require('express');
 const mongoose = require('mongoose');
-const usersRoutes = require('./routes/users');
+const usersRoutes = require('./routes/usuarios');
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 // Usar las rutas de usuarios con prefijo /users
-app.use('/users', usersRoutes);
+app.use('/usuarios', usersRoutes);
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
